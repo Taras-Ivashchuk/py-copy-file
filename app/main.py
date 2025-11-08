@@ -1,19 +1,17 @@
 def copy_file(command: str) -> None:
     tokens = command.split(" ")
     if len(tokens) != 3:
-        print("Usage: copy_file(cp f1.txt f2.txt)")
         return
 
-    command, file1, file2 = tokens
+    command, source_file, destination_file = tokens
 
-    if command != "cp" or file1 == file2:
-        print("Usage: copy_file(cp f1.txt f2.txt)")
+    if command != "cp" or source_file == destination_file:
         return
 
     try:
-        with open(file1, "r") as file_in, open(file2, "w") as file_out:
-            for line in file_in.read():
-                file_out.write(line)
+        with (open(source_file, "r") as file_in,
+              open(destination_file, "w") as file_out):
+            file_out.write(file_in.read())
 
     except FileNotFoundError:
-        print(f"File {file1} not found")
+        ...
